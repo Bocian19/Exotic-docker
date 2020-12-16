@@ -1,0 +1,47 @@
+
+<form action="" method="post">
+    {% csrf_token %}
+
+{{ form.non_field_errors }}
+<div class="fieldWrapper">
+    {{ form.name.errors }}
+    <label for="{{ form.name.id_for_label }}"><text>ВАШЕ ИМЯ</text></label><span class="align-top text-danger"> *</span>
+    {{ form.name }}
+</div>
+<div class="fieldWrapper">
+    {{ form.phone_number.errors }}
+    <label for="{{ form.phone_number.id_for_label }}">НОМЕР ТЕЛЕФОНА</label><span class="align-top text-danger"> *</span>
+    {{ form.phone_number }}
+</div>
+<div class="fieldWrapper">
+    {{ form.email.errors }}
+    <label for="{{ form.email.id_for_label }}">EMAIL</label><span class="align-top text-danger"> *</span>
+    {{ form.email }}
+</div>
+<div class="fieldWrapper">
+    {{ form.post_code.errors }}
+    <label for="{{ form.post_code.id_for_label }}">ПОЧТОВЫЙ КОД</label>
+    {{ form.post_code }}
+</div>
+<div class="fieldWrapper">
+    {{ form.city.errors }}
+    <label for="{{ form.city.id_for_label }}">ГОРОД</label>
+    {{ form.city }}
+</div>
+<div class="fieldWrapper">
+    {{ form.street.errors }}
+    <label for="{{ form.street.id_for_label }}">УЛИЦА</label>
+    {{ form.street }}
+</div>
+<div class="fieldWrapper">
+    {{ form.message.errors }}
+    <label for="{{ form.message.id_for_label }}">ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ</label>
+    {{ form.message }}
+</div>
+<div>
+    {{ form.captcha.errors }}
+    <label for="{{ form.captcha.id_for_label }}"></label>
+    {{ form.captcha }}
+</div>
+<input class="btn mt-3" type="submit" value="Отправить">
+</form>

@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container justify-content-center text-center">
+    <h2 class="h-mobile" style="margin-top: 2vw; margin-bottom: 2vw; font-weight: 550">ВСЕ ЗАПЧАСТИ</h2>
+    </div>
+    <div class="row cols-2 ml-1 mr-1">
+    <div class="col-2 mt-1 pl-1 pr-1" style="margin-bottom: 9px">
+        <div class="d-flex flex-column mt-1">
+            <div style="font-size: 2.5vw" class="d-flex justify-content-center">Фильтр</div>
+        <hr style="border-top: 1px solid #0c0c0ecc; width: 80%;">
+            <form action="{% url 'products' %}" id="form-filter" method="post" class="d-flex flex-column justify-content-left" style="margin-left: 10%; margin-bottom: 0.5vw;">
+            {% csrf_token %}
+                {% for shortcut, producer_name in producers %}
+                    <div>
+            <input style="height: 0.5vw; margin-top: 0; appearance: none!important; visibility: hidden" id="{{ shortcut }}" type="radio" name="brand"
+                    value="{{ shortcut }}"><label id="brand-label" style="margin-bottom: 0">{{ producer_name }}</label>
+                </div>
+                {% endfor %}
+                    </form>
+        </div>
+        <span style="margin-left: 10%"><a class="text-dark text-decoration-none font-weight-bold" href={% url 'products' %}>Все производители</a>
+            </span>
+    </div>
+    <div class="col-10 mt-1 mb-1" style="padding-left: 1vw; padding-right: 1vw">
+    {% block hot-items %}
+    <!-- Hot parts -->
+    <div class="container-fluid pl-0 pr-0" style="background-color: white">
+        <div class="" id="products-cart">
+            <div id="parts" class="row row-cols-4 ml-0 mr-0 mb-3">
+                {% for part in page_obj %}
+                    <a style="color: #0c0c0c" href="{% url 'product' slug=part.slug %}">
+                    <div class="col s4 p-1 m-1 h-100" style="outline: 1px solid burlywood; outline-offset: -4px">
+                        <div class="center d-flex flex-column h-100">
+                            {% for image in part.images_with_product %}
+                                {% if image.product.id == part.id %}
+                                    {% if image.use_as_main == True %}
+                                    {% if forloop %}
+                                        <img id="first"  src="{{ image.image_tag }}" alt="car-part">
+                                    {% endif %}
+                                        {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            <div class="d-flex flex-column mt-auto mobile-font">
+                                <div class="d-flex justify-content-center">
+                                    <span style="text-align: center">{{ part.name }}</span>
+                                </div>
+                            <div class="d-flex justify-content-center">
+                                <hr class="align-self-center" style="width: 10%; display: inline-block; border-top: 0.1rem solid rgba(0, 0, 0, 100); margin-bottom: 0.5vw!important; margin-top: 0.5vw!important;">
+                            </div>
+                            <div class="d-flex justify-content-center">${{ part.price }}</div>
+                                </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                    </a>
+            </div>
+         <span class="step-links">
+    {% if page_obj.has_next %}
+        <div class="d-flex justify-content-center mt-2">
+            <button type="button" id="load-more" class="btn btn-secondary" href=""
+                    data-page="?page={{ page_obj.next_page_number }}">Больше</button>
+            </div>
+        {% endif %}
+    </span>
+        </div>
+
+    </div>
+    {% endblock %}
+    </div>
+</div>
+{% endblock %}

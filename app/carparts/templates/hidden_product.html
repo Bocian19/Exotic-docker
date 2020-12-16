@@ -1,0 +1,28 @@
+<!doctype html>
+{% load static %}
+<div>
+  {% for part in page_obj %}
+                    <div id="carousel-col" class="show" data-page="?page={{ page_obj.number }}">
+                    <a  style="color: #0c0c0c" href="{% url 'product' part.slug %}">
+                    <div class="col s4 pl-0 pr-0 h-100" style="border: double burlywood;display: inline-block">
+                        <div class="center d-flex flex-column h-100">
+                            {% for image in part.images_with_product %}
+                                {% if image.product.id == part.id %}
+                                    {% if image.use_as_main == True %}
+                                        <img id="main-carousel-img"  src="{{ image.image_tag }}" alt="car-part">
+                                        {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            <div class="d-flex flex-column mt-auto">
+                                <div class="d-flex justify-content-center">
+                                    <span style="text-align: center">{{ part.name }}</span>
+                                </div>
+                                <hr class="align-self-center" style="width: 10%; display: inline-block; border-top: 0.1rem solid rgba(0, 0, 0, 100); margin-bottom: 0.5vw!important; margin-top: 0.5vw!important;">
+                            <div class="d-flex justify-content-center">${{ part.price }}</div>
+                                </div>
+                        </div>
+                    </div>
+                    </a>
+                    </div>
+  {% endfor %}
+</div>

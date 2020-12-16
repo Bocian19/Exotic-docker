@@ -1,0 +1,227 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid pl-0 pr-0 pt-0" style="background-image: url('{% static 'media/wp1917178--leather-wallpapers.jpg' %}'); background-size: cover; background-position: top center">
+        <div class="d-flex justify-content-center">
+            <img src="{% static 'carparts/Exotic Group 2.png' %}" alt="logo" style="width: 60%; align-self: flex-start">
+            </div>
+    <!-- Logotypes -->
+        <div class="container-fluid pl-0 pr-0" style=" background-size: cover; color: aliceblue">
+        <div class="container-fluid h-mobile-2" style="padding-top: 1vw"><p class="mb-0 text-center font-italic">Выберите свою модель или найдите нужную деталь</p>
+        <div class="h-mobile-2" style="font-size: 1.2vw; text-align: center">Oригинальные запчасти напрямую от производителя.</div>
+    <div>
+        {% for logo in logos %}
+            {% if forloop.first %}
+                <div class="d-flex justify-content-center">
+            {% endif %}
+        <div class="d-inline-flex  justify-content-center logo-div"
+             style="border: 1px solid; border-color: burlywood; width: 10%; margin: 0.5vw;">
+            <div class="align-self-center"><img src="{{ logo.image_tag }}" alt="logo" class="img-logo"></div>
+        </div>
+        {% if forloop.counter|divisibleby:6 %}
+            </div>
+            <div class="d-flex justify-content-center mb-1">
+        {% endif %}
+        {% if forloop.last %}
+            </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <div style="text-align: center; letter-spacing: 0.25vw; padding-bottom: 10px">
+    <h class="h-mobile-2" style="text-align: center">Автозапчасти эксклюзивных брендов
+    <br>Оригинальные запчасти, Exotic Parts</h></div>
+    </div>
+        </div>
+    </div>
+
+    {% block hot-items %}
+    <!-- Hot parts -->
+    <div class="container-fluid pl-0 pr-0" style="background-color: white; padding-top: 0.5vw; padding-bottom: 1vw">
+    <div class="d-flex justify-content-center" style="margin-bottom: 1vw">
+    <hr class="align-self-center" style="width: 20%; display: inline-block; border-top: 0.1rem solid rgba(0, 0, 0, 100); margin-right: 2%">
+    <div class="align-self-center h-mobile" style="text-align: center; font-size: 2.5vw; font-weight: 550; display: inline-block;">Новинки</div>
+    <hr class="align-self-center" style="width: 20%; display: inline-block; border-top: 0.1rem solid rgba(0, 0, 0, 100); margin-left: 2%">
+    </div>
+        <div class="carousel" id="carousel1">
+            <div id="parts-row" class="row row-cols-5 ml-0 mr-0 ">
+                {% for part in entry_products %}
+                     {% if forloop.counter == 6 %}
+                         <div id="carousel-col" class="hide" data-page="?page={{ forloop.counter }}">
+                            <a style="color: #0c0c0c" href="{% url 'product' part.slug %}">
+                    <div class="col s4 pl-0 pr-0 h-100" style="border: double burlywood; display: inline-block">
+                        <div class="center d-flex flex-column h-100">
+                            {% for image in part.images_with_product %}
+                                {% if image.product.id == part.id %}
+                                    {% if image.use_as_main == True %}
+                                        <img id="main-carousel-img"  src="{{ image.image_tag }}" alt="car-part">
+                                        {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            <div class="d-flex flex-column mt-auto">
+                                <div class="d-flex justify-content-center">
+                                    <span style="text-align: center">{{ part.name }}</span>
+                                </div>
+                                <hr class="align-self-center" style="width: 10%; display: inline-block; border-top: 0.1rem solid rgba(0, 0, 0, 100); margin-bottom: 0.5vw!important; margin-top: 0.5vw!important;">
+                            <div class="d-flex justify-content-center">${{ part.price }}</div>
+                                </div>
+                        </div>
+                    </div>
+                    </a>
+                         </div>
+                         {% else %}
+                         <div id="carousel-col" class="show-1" data-page="?page={{ forloop.counter }}">
+                    <a style="color: #0c0c0c" href="{% url 'product' part.slug %}">
+                    <div class="col s4 pl-0 pr-0 h-100" style="border: double burlywood; display: inline-block;">
+                        <div class="center d-flex flex-column h-100">
+                            {% for image in part.images_with_product %}
+                                {% if image.product.id == part.id %}
+                                    {% if image.use_as_main == True %}
+                                        <img id="main-carousel-img"  src="{{ image.image_tag }}" alt="car-part">
+                                        {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            <div class="d-flex flex-column mt-auto mobile-font">
+                                <div class="d-flex justify-content-center">
+                                    <span style="text-align: center">{{ part.name }}</span>
+                                </div>
+                                <hr class="align-self-center" style="width: 10%; display: inline-block; border-top: 0.1rem solid rgba(0, 0, 0, 100); margin-bottom: 0.5vw!important; margin-top: 0.5vw!important;">
+                            <div class="d-flex justify-content-center">${{ part.price }}</div>
+                                </div>
+                        </div>
+                    </div>
+                    </a>
+                         </div>
+                {% endif %}
+                {% endfor %}
+            {% for part in range_times %}
+                {% if forloop.counter < 7 %}
+                   <!-- continue -->
+                {% else %}
+                    <div id="carousel-col" class="hide" data-page="?page={{ forloop.counter }}"></div>
+                {% endif %}
+            {% endfor %}
+            </div>
+         <span class="step-links">
+                    {% if page_obj.has_previous %}
+                         <a class="carousel-control-prev" id="load-back" style="width: 2%; border: none" href=""
+                            data-page="?page={{ page_obj.previous_page_number }}" role="button" >
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                        </a>
+                    {% else %}
+                        <a class="carousel-control-prev" id="load-back" style="width: 2%; border: none" href=""
+                            data-page="?page=0" role="button" >
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                        </a>
+                    {% endif %}
+                    {% if page_obj.has_next %}
+                        <a class="carousel-control-next" id="load_more" style="width: 2%; border: none" href=""
+                        data-page="?page={{ page_obj.next_page_number }}" role="button" >
+                        <span class="carousel-control-next-icon"></span>
+                        <span class="sr-only">Next</span>
+                        </a>
+                    {% endif %}
+                    </span>
+            </div>
+        </div>
+
+    <div class="d-flex justify-content-center" style="margin-top: 1vw; margin-bottom: 1vw;">
+            <a role="button" type="button" class="btn btn-outline-dark" href="{% url 'products' %}">Все запчасти</a>
+            </div>
+
+    {% endblock %}
+    {% block carousel %}
+    <!-- Site carousel just images -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{% static '/carousel/mansory_bentley_flying_spur1.jpg' %}" alt="First slide"
+                     style="width:100%;">
+            </div>
+            <div class="carousel-item">
+                <img src="{% static '/carousel/mansory_bentley_flying_spur2.jpg' %}" alt="Second slide"
+                     style="width:100%;">
+            </div>
+            <div class="carousel-item">
+                <img src="{% static '/carousel/Ferrari-on-track.jpg' %}" alt="Third slide" style="width:100%;">
+            </div>
+        </div>
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+    {% endblock %}
+{#    <div class="container">#}
+{#    {% block instagram %}#}
+{#    {% if 'instagram.html' %}#}
+{#        {% include 'instagram.html' %}#}
+{#    {% endif %}#}
+{#    {% endblock %}#}
+{#    </div>#}
+    <div class="container">
+    {% block instagram %}
+        <div id="instagram" style="padding-top: 2px">
+    <div class="d-flex justify-content-center">
+    <hr class="align-self-center" style="width: 30%; display: inline-block; border-top: 0.1rem solid rgba(0, 0, 0, 100); margin-right: 2%">
+    <div class="align-self-center"><img src="{% static 'media/instagram-logo-banner.png' %}" style="width: 155px; height: auto"
+    alt="instagram-logo" id="insta-image"></div>
+    <hr class="align-self-center" style="width: 30%; display: inline-block; border-top: 0.1rem solid rgba(0, 0, 0, 100); margin-left: 2%">
+    </div>
+    <div class="d-flex justify-content-center" style="margin-bottom: 4px"><span class="align-self-center" id="ista-name">@exoticparts.eu</span>
+    </div>
+        </div>
+    	<div id="instafeed-container"></div>
+
+	<script src="https://cdn.jsdelivr.net/gh/stevenschobert/instafeed.js@2.0.0rc1/src/instafeed.min.js"></script>
+	<script type="text/javascript">
+	var userFeed = new Instafeed({
+		get: 'user',
+		target: "instafeed-container",
+    	resolution: 'low_resolution',
+		accessToken: 'IGQVJVT1N4SnpVeW93R0RNR1ByUHNTeW91TXYtMUZAvd2tfYW8tT2QtN2V4d2stUHZAnNTkyTEZApUVBsZAmFoSy1kSVBldnBKRnNEbEh0cDVzNjlyZAmdKdk9zUjg1cEVoX1FIcFVxdXN6V0Y2UnB4SUo1YwZDZD'
+	});
+	userFeed.run();
+	</script>
+    {% endblock %}
+    </div>
+<div class="container">
+ <div class="container-fluid pl-0 pr-0" style="background-color: white; padding-top: 0.5vw; padding-bottom: 1vw">
+    <div class="d-flex container justify-content-center" style="margin-bottom: 1vw; padding-top: 2vw">
+    <hr class="align-self-center" style="width: 12%; display: inline-block; border-top: 0.1rem solid rgba(0, 0, 0, 100); margin-right: 2%">
+    <div class="align-self-center h-mobile font-weight-bold" style="text-align: center; font-size: 2.1vw; display: inline-block;">ВЫБРАННЫЕ БРЕНДЫ</div>
+    <hr class="align-self-center" style="width: 12%; display: inline-block; border-top: 0.1rem solid rgba(0, 0, 0, 100); margin-left: 2%">
+    </div>
+
+             <div class="d-flex container justify-content-center" style="margin-bottom: 3vw;">
+    <a href="https://www.mansory.com/"><img src="{% static 'media/Mansory-logo .png' %}"  class="tuner-brand-2" alt="Mansory-logo"></a>
+           </div>
+ <hr class="align-self-center" style="width: 61%; display: block; border-top: 0.1rem solid rgba(0, 0, 0, 100);
+             margin-top: 1vw;">
+</div>
+</div>
+<div class="container">
+<p style="font-size: 30%; text-align: center">
+    Ferrari является зарегистрированным товарным знаком Ferrari S.P.A, и Exotic Parts USA не имеет отношения к Ferrari S.P.A.<br>
+Maserati является зарегистрированным товарным знаком Maserati S.P.A, и Exotic Parts USA не имеет отношения к Maserati S.P.A.<br>
+Lamborghini является зарегистрированным товарным знаком Automobili Lamborghini S.P.A, и Exotic Parts USA не имеет отношения к Automobili Lamborghini S.P.A.<br>
+Rolls Royce является зарегистрированным товарным знаком Rolls Royce Motor Cars Limited, а Exotic Parts USA не имеет отношения к Rolls Royce Motor Cars Limited.<br>
+Bentley является зарегистрированным товарным знаком Bentley Motor Limited, а Exotic Parts USA не связана с Bentley Motor Limited.<br>
+Porsche - зарегистрированная торговая марка DR. ING. H.C. F. PORSCHE AG и Exotic Parts USA не связаны с DR. ING. H.C. F. PORSCHE AG<br>
+Bugatti является зарегистрированным товарным знаком Bugatti International S.A., а Exotic Parts USA не имеет отношения к Bugatti International S.A.<br>
+McLaren является зарегистрированным товарным знаком McLaren Automotive Limited, а Exotic Parts USA не связана с McLaren Automotive Limited.<br>
+Aston Martin является зарегистрированным товарным знаком Aston Martin Lagonda Limited, а Exotic Parts USA не имеет отношения к Aston Martin Lagonda Limited.<br>
+Land rover является зарегистрированным товарным знаком Jaguar Land Rover Limited, а Exotic Parts USA не имеет отношения к Jaguar Land Rover Limited.<br>
+Mercedes Benz является зарегистрированным товарным знаком Daimler AG, а Exotic Parts USA не имеет отношения к Daimler AG.<br>
+Все логотипы, названия и изображения, появляющиеся на этом сайте, предназначены только для именных и информационных целей.</p>
+</div>
+
+{% endblock %}

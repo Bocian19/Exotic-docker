@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container" style="margin-top: 2vw; background-color: white">
+        <a class="text-decoration-none text-reset" id="root-link" href="{% url 'main-page' %}">Главная </a><a class="text-decoration-none text-reset" id="root-link" href="{% url 'products' %}">/ запчасти / </a>
+        <p id="root-link" style="display: inline-block; color: grey">{{ product.name }}</p>
+        <div class="row cols-2">
+            <div class="col-7">
+                <div class="row ml-0 mr-0">
+                    {% for image in product.images_with_product %}
+                        {% if forloop.counter == 1 %}
+                            <a href="{{ image.image_tag }}">
+                                <div id="large-thumbnail" class="d-flex"><img class="product-thumbnail"
+                                                                              src="{{ image.image_tag }}"
+                                                                              alt="{{ image.product.product_name }}">
+                                </div>
+                            </a>
+                            <div id="small-thumbnail" class="col-2 p-1"><img src="{{ image.image_tag }}"
+                                                                                        alt="{{ image.product.product_name }}"
+                                                                                        class="active-thumbnail">
+                            </div>
+                        {% endif %}
+                        {% if forloop.counter == 2 %}
+                            <div id="small-thumbnail" class="col-2 p-1"><img src="{{ image.image_tag }}"
+                                                                                        alt="{{ image.product.product_name }}"
+                                                                                        class=""></div>
+                        {% endif %}
+                        {% if forloop.counter == 3 %}
+                            <div id="small-thumbnail" class="col-2 p-1"><img src="{{ image.image_tag }}"
+                                                                                        alt="{{ image.product.product_name }}"
+                                                                                        class=""></div>
+                        {% endif %}
+                        {% if forloop.counter == 4 %}
+                            <div id="small-thumbnail" class="col-2 p-1"><img src="{{ image.image_tag }}"
+                                                                                        alt="{{ image.product.product_name }}"
+                                                                                        class=""></div>
+                        {% endif %}
+                        {% if forloop.counter == 5 %}
+                            <div id="small-thumbnail" class="col-2 p-1"><img src="{{ image.image_tag }}"
+                                                                                        alt="{{ image.product.product_name }}"
+                                                                                        class=""></div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-5" style="color: #242A35;">
+                <div style="font-size: 2.5vw" class="text-start part-heading">
+                    <h>{{ product.name }}</h>
+                </div>
+                <div><p class="text-start part-details" style="color: black; margin-top: 1em">Цена: $<u>{{ product.price }}</u></p></div>
+                <div><p class="text-start part-details mb-3" style="color: #686767"><i>{{ product.description }}</i></p></div>
+
+                <div id="collapse-starter" class="d-flex mr-2">
+                    <text>Наличие и доставка</text>
+                    <div class="d-inline ml-auto">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+</svg></div></div>
+                <div class="delivery-info">
+                    <p class="text-justify">Примерное время прибытия не менее 5-7 рабочих дней. Пожалуйста, проверьте
+                    наличие еще раз,
+                    если детали отсутствуют на складе в США, значит, они должны быть из-за пределов Европы,
+                    клиентам НЕ нужно беспокоиться о таможенном оформлении, импортных пошлинах и т. Д. Пожалуйста,
+                    запросите также стоимость доставки.</p></div>
+                <hr style="border-top: 0.1rem solid rgba(0, 0, 0, 100);">
+                <div id="collapse-starter-2" class="d-flex mr-2 mb-2">
+                    <text>Номера деталей</text>
+                    <div class="d-inline ml-auto">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+</svg></div></div>
+                <div class="part-number-info">
+                     <div><p class="text-center part-details" style="color: #817e7e">
+                    {% if not product.part_number %}
+                    {% else %}
+                        {{ product.part_number }}
+                    {% endif %}</p>
+        </div>
+                    </div>
+                <div class="d-flex justify-content-start" style="padding-top: 15px"><text class="part-details font-italic" style="padding-top: 2px; padding-right: 8px">Поделиться через WhatsApp</text>
+                <a href="https://api.whatsapp.com/send?text={{ request.build_absolute_uri }}" target="_blank" style=""
+                   data-toggle="tooltip" data-placement="top" title="Поделиться через WhatsApp">
+                    <img src="{% static 'media/whatsapp-green.png' %}" class="comunicator-icon" alt="comunicator-icon"></a></div>
+            </div></div>
+        <div id="collapse-starter-3" class="mt-2 justify-context-center">
+            <div class="d-flex justify-content-center" style="margin-top: 3vw; margin-bottom: 1vw;">
+                <button style="display: block; font-size: 1.6vw!important;" class="btn btn-outline-dark">Xочу заказать</button>
+            </div>
+        </div>
+            <div class="order" style="display: none">
+                <div class="d-flex justify-content-left"><p class="part-details">Для оформления заявки заполните форму ниже как можно подробнее.</p></div>
+                <div class="d-flex justify-content-left"><p class="part-details">Примите к сведению, что ваша информация сохраняется на наших серверах по мере ввода.</p></div>
+     {% include 'order.html' %}
+</div>
+{% if product %}
+    {% if product.other_products_from_category %}
+        <div class="p-1 justify-content-center" style="margin-top: 2vw; background: ghostwhite; margin-left: auto; margin-right: auto">
+            <div class="d-flex justify-content-center"><p class="mb-1 part-details"><b>Другие предложения для этого бренда</b></p></div>
+                <div class="similar-items">
+                    {% if  product.other_products_from_category.count < 5 %}
+                        <div class="row row-cols-{{ product.other_products_from_category.count }} ml-0 mr-0" style="font-size: 1vw">
+                            {% for part in product.other_products_from_category %}
+                                <a style="color: #0c0c0c" href="{% url 'product' part.slug %}">
+                                <div class="col s4 p-2 h-100"
+                                     style=" display: inline-block">
+                                    <div class="center d-flex flex-column h-100">
+                                        {% for image in part.images_with_product %}
+                                            {% if image.use_as_main == True %}
+                                                {% if forloop %}
+                                                    <img id="additional-img"
+                                                         src="{{ image.image_tag }}" alt="{{ part.name }}">
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                        <div class="d-flex flex-column mt-auto mobile-font">
+                                            <div class="d-flex justify-content-center">
+                                                <span style="text-align: center">{{ part.name }}</span>
+                                            </div>
+                                            <div class="d-flex justify-content-center">
+                                                <hr class="align-self-center" style="width: 10%; display: inline-block; border-top: 0.1rem solid rgba(0, 0, 0, 100); margin-bottom: 0.5vw!important; margin-top: 0.5vw!important;">
+                                            </div>
+                                            <div class="d-flex justify-content-center">${{ part.price }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </a>
+                        </div>
+                    {% elif  product.other_products_from_category.count > 4 %}
+                        <div class="row row-cols-5 ml-0 mr-0" style="font-size: 1vw">
+                            {% for part in product.other_products_from_category %}
+                                <a style="color: #0c0c0c" href="{% url 'product' part.slug %}">
+                                <div class="col s4 pl-0 pr-0 h-100"
+                                     style="border: double burlywood;display: inline-block; border-radius: 5%">
+                                    <div class="center d-flex flex-column h-100">
+                                        {% for image in part.images_with_product %}
+                                            {% if image.use_as_main == True %}
+                                                {% if forloop %}
+                                                    <img id="additional-img"
+                                                         src="{{ image.image_tag }}" alt="{{ part.name }}">
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                        <div class="d-flex flex-column mt-auto">
+                                            <div class="d-flex justify-content-center">
+                                                <span style="text-align: center">{{ part.name }}</span>
+                                            </div>
+                                            <div class="d-flex justify-content-center">
+                                                <span class="glyphicon glyphicon-minus"></span>
+                                            </div>
+                                            <div class="d-flex justify-content-center">${{ part.price }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </a>
+                        </div>
+                {% endif %}
+                </div>
+</div>
+{% endif %}
+
+    {% endif %}
+    </div>
+{% endblock %}

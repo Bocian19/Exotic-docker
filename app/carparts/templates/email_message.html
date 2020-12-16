@@ -1,0 +1,17 @@
+{% load static %}
+{% autoescape off %}
+Здравствуйте {{ user }},
+    Вы разместили заказ на сайте
+    http://{{ domain }}
+    Ссылка на товар:
+    http://{{ link_to_item }}/zapchasti/{{ slug }}
+    В ближайшее время мы свяжемся с вами по указанному
+    адресу электронной почты: {{ recepient }}
+    или номеру телефона: {{ phone_number }},
+    чтобы уточнить детали транзакции.
+    {% if city %}
+    Ваш адрес доставки: {{ city }}, {{ street }}, {{ code }}
+    {% endif %}
+    С уважением
+    -EXOTICGROUP-
+{% endautoescape %}

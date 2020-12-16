@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <div class="container-fluid pl-0 pr-0" style="background-image: url('{% static 'media/wp1917178--leather-wallpapers.jpg' %}'); background-size: cover; background-position: top center">
+    <div class="container-fluid text-center h-mobile" style="font-size: 2.5vw; color: #f0f8ffd4; background: #1b1c1f7a; padding-top: 12px; padding-bottom: 12px">Вы можете приобрести у нас аэродинамические обвесы </div>
+        <div class="container" style="padding-left: 10%; padding-right: 10%; padding-top: 2%">
+    <div class="d-flex justify-content-center" style="margin-bottom: 2%; margin-top: 2%">
+    <img src="{% static 'media/White Mansory-logo-1600x400.png' %}" class="tuner-brand" alt="Mansory-logo">
+    </div>
+        <div class="" id="products-cart">
+    <div id="parts" class="row row-cols-4">
+        {% for image in bodykits_images %}
+            {% if image.producer_name != None %}
+                    <div class="col s4 justify-content-center p-0 h-100" style="display: inline-block; color: aliceblue">
+                        <div class=" d-flex m-2 flex-column h-100" style="align-items: center">
+                            <img id="brand-icon" src="{{ image.image_tag }}" alt="car-part">
+                            <div class="d-flex flex-column mt-auto">
+                                <div class="d-flex justify-content-center">
+                                    <span style="text-align: center">{{ image.producer_name| upper }}</span>
+                                </div>
+                        </div>
+                    </div>
+            </div>
+            {% endif %}
+          {% endfor %}
+    </div>
+         </div>
+    <hr class="align-self-center bodykits" style="width: 77%; display: block; border-top: 0.1rem solid white; margin-top: 5%; margin-bottom: 5%">
+    <div style="font-size: 2.9vw; text-align: center; color: aliceblue; margin-bottom: 4%; margin-top: 5%">GENEVA COLLETION 2020</div>
+    <div class="" id="products-cart">
+    <div id="parts" class="row row-cols-3">
+        {% for image in bodykits_images %}
+            {% if image.producer_name == None %}
+                    <div class="col s4 justify-content-center p-0 h-100" style="display: inline-block; color: aliceblue">
+                        <div class=" d-flex m-1 flex-column h-100" style="align-items: center">
+                            <img id="brand-icon-2" src="{{ image.image_tag }}" alt="car-part">
+                    </div>
+            </div>
+            {% endif %}
+          {% endfor %}
+    </div>
+         </div>
+    </div>
+    </div>
+{% endblock %}
+
