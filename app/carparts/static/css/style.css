@@ -166,8 +166,8 @@ body, html { overflow-x:hidden; }
     }
     .btn {
         line-height: 1rem!important;
-        font-size: 1rem!important;
-        padding: .3rem .3rem!important;
+        font-size: 0.8rem!important;
+        padding: .1rem .2rem!important;
     }
     .btn-footer {
         line-height: 0.4rem!important;
