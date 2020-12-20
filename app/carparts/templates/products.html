@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% block title %}
+<title>запчасти Benltey Lamborghini Ferrari Aston Martin Mercedes BMW Audi Rolls-Royce Maserati Prosche Bugatti Land-Rover</title>
+{% endblock %}
 
 {% block content %}
     <div class="container justify-content-center text-center">
@@ -30,7 +33,7 @@
             <div id="parts" class="row row-cols-4 ml-0 mr-0 mb-3">
                 {% for part in page_obj %}
                     <a style="color: #0c0c0c" href="{% url 'product' slug=part.slug %}">
-                    <div class="col s4 p-1 m-1 h-100" style="outline: 1px solid burlywood; outline-offset: -4px">
+                    <div class="col s4 p-1 mr-1 h-100" style="outline: 1px solid burlywood; outline-offset: -4px">
                         <div class="center d-flex flex-column h-100">
                             {% for image in part.images_with_product %}
                                 {% if image.product.id == part.id %}

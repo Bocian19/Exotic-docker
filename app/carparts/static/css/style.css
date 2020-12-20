@@ -108,8 +108,8 @@ body, html { overflow-x:hidden; }
 
 }
     img#brand-icon {
-    width: 81px !important;
-    height: 46px !important;
+    max-width: 79px !important;
+    height: 47px !important;
     object-fit: cover;"
 }
     img#brand-icon-2 {
@@ -228,10 +228,10 @@ body, html { overflow-x:hidden; }
     font-size: 2.3vw!important;
 }
 .mobile-font {
-    font-size: 1.3vw!important;
+    font-size: 1.9vw!important;
 }
 .img-logo {
-    max-height: 49.75px!important;
+    max-height: 56.75px!important;
 }
 .logo-div {
     width: 15% !important;
