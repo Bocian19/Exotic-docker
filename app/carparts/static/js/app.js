@@ -3,6 +3,17 @@ $(document).ready(function(){
 
     // console.log($("#django_instagram_media_wall"));
 
+    $(document).on('click', '#load-more', function(){
+      const page = $('button#load-more').data('page');
+    $.ajax({
+        method:"GET",
+        url: window.location.href + page,
+        success: function(result){
+      $('#parts').append(($('#parts', result).html()));
+      $('.step-links').html($('.step-links', result).html());
+    }});
+  });
+
     $('[data-toggle="tooltip"]').tooltip();
 
   $('.carousel').on('click', 'a#load_more', function(e) {
@@ -10,7 +21,6 @@ $(document).ready(function(){
 
         const colums_to_show = $('#carousel-col.show-1');
         if (colums_to_show[4].nextElementSibling.nextElementSibling) {
-            console.log(colums_to_show[4].nextElementSibling.nextElementSibling);
             const column_target = colums_to_show[4].nextElementSibling.nextElementSibling
             const page = column_target.getAttribute('data-page');
 
@@ -50,8 +60,9 @@ $(document).ready(function(){
 
 // creating border on clicked thumbnail
       $('div#small-thumbnail').on('click', function () {
-
-          $('div#large-thumbnail')[0].innerHTML = this.innerHTML;
+          const large_div = $('div#large-thumbnail');
+          large_div[0].parentElement.href = this.firstChild.src;
+          large_div[0].innerHTML = this.innerHTML;
 
           const active = document.querySelector('.active-thumbnail');
           if (active) {
@@ -135,6 +146,7 @@ function validate(go) {
 }
 
 $("#validate").on("click", validate);
+
 
        // $("#django_instagram_media_wall").click(function(e) {
        //      e.preventDefault();
