@@ -19,11 +19,23 @@ services:
     command: sh -c "python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./app:/app
+      - static_data:/vol/web
     ports:
      - "8000:8000"
     environment: *app-variables
     depends_on:
       - db_migrate
+  nginx:
+    build:
+      context: nginx
+    environment:
+      - TZ=Europe/Warsaw
+    volumes:
+      - static_data:/vol/static
+    ports:
+      - "80:80"
+    depends_on:
+      - app
 
   db_migrate:
     image: exotic-website-production:latest
@@ -44,3 +56,4 @@ services:
 
 volumes:
   postgres-data:
+  static_data:
