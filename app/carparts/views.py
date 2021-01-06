@@ -81,7 +81,7 @@ class ProductView(DetailView):
                 'city': city,
                 'street': street,
                 'code': code,
-                'slug' : slug,
+                'slug': slug,
                 'recepient': recepient
 
              })
@@ -91,10 +91,11 @@ class ProductView(DetailView):
             message = 'Спасибо за заказ. Ваш заказ отправлен нам а также на вашу электронную почту отправлено подтверждение.' \
                       ' Мы свяжемся с вами в ближайшее время для уточнения деталей сделки.'\
                         ' С уважением.'
-            return render(request, 'kontakt.html', {'message': message}, *args)
+            return redirect(request, 'kontakt.html', {'message': message}, *args)
 
-        form = OrderForm(request.POST)
-        return render(request, 'order.html', {'form': form}, *args, **kwargs)
+        return redirect(request.META['HTTP_REFERER'])
+
+
 
 
 class ProductsView(View):
@@ -116,12 +117,12 @@ class ProductsView(View):
             brand = request.POST.get('brand')
             products = Product.objects.all().filter(producer=brand).order_by('price')
 
-            paginator = Paginator(products, 20)
+            # paginator = Paginator(products, 20)
+            #
+            # page_number = request.GET.get('page')
+            # page_obj = paginator.get_page(page_number)
 
-            page_number = request.GET.get('page')
-            page_obj = paginator.get_page(page_number)
-
-            return render(request, 'products.html', {'page_obj': page_obj, 'producers': PRODUCER})
+            return render(request, 'products.html', {'products': products, 'producers': PRODUCER})
 
 
 class ContactView(View):
