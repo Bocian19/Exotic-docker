@@ -42,8 +42,8 @@ class Product(models.Model):
         return reverse('product', kwargs=kwargs)
 
     def save(self, *args, **kwargs):
-        if not self.id:
-            self.slug = slugify(self.name)
+        # if not self.id:
+            # self.slug = slugify(self.name, allow_unicode=True)
         super(Product, self).save(*args, **kwargs)
 
     def images_with_product(self):
