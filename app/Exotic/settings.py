@@ -127,11 +127,11 @@ INTERNAL_IPS = [
 SECRET_KEY = os.environ.get('SECRET_KEY', 'changeme')
 
 RECAPTCHA_PUBLIC_KEY='6LeYu-EZAAAAAAZP3Ggbe1Q6uk7eHob2xaO9Rgi7'
-RECAPTCHA_PRIVATE_KEY='6LeYu-EZAAAAAGwHVpVbWYao-VDIVg-9kqO-waI2'
+
 
 try:
     from .email_credentials import EMAIL_HOST, EMAIL_HOST_PASSWORD, EMAIL_HOST_USER, EMAIL_PORT, EMAIL_USE_TLS,\
-         DEFAULT_FROM_EMAIL, EMAIL_USE_SSL, EMAIL_BACKEND
+         DEFAULT_FROM_EMAIL, EMAIL_USE_SSL, EMAIL_BACKEND, RECAPTCHA_PRIVATE_KEY
 except ModuleNotFoundError:
     print("Brak podanych informacji w pliku email_credentials.py!")
     print("Uzupełnij dane i spróbuj ponownie!")
