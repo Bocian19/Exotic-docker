@@ -1,7 +1,6 @@
 
 $(document).ready(function(){
 
-    // console.log($("#django_instagram_media_wall"));
 
     $(document).on('click', '#load-more', function(){
       const page = $('button#load-more').data('page');
@@ -76,10 +75,10 @@ $(document).ready(function(){
           this.style.backgroundColor = "#a9a9a9";
           const active = $("input[name=brand]:checked");
           if (active) {
-              console.log(active);
           }
           this.previousElementSibling.setAttribute('checked', "checked");
           $('#form-filter').submit();
+
       })
       $('.myCarousel').carousel({
           interval: 2000
