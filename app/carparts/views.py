@@ -115,14 +115,9 @@ class ProductsView(View):
 
         if request.method == "POST":
             brand = request.POST.get('brand')
-            products = Product.objects.all().filter(producer=brand).order_by('price')
+            products = Product.objects.all().filter(producer=brand).order_by('-price')
 
-            # paginator = Paginator(products, 20)
-            #
-            # page_number = request.GET.get('page')
-            # page_obj = paginator.get_page(page_number)
-
-            return render(request, 'products.html', {'products': products, 'producers': PRODUCER})
+            return render(request, 'products.html', {'products': products, 'producers': PRODUCER, 'brand': brand})
 
 
 class ContactView(View):

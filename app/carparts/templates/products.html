@@ -1,11 +1,19 @@
 {% extends 'base.html' %}
 {% block title %}
-<title>запчасти Benltey Lamborghini Ferrari Aston Martin Mercedes BMW Audi Rolls-Royce Maserati Prosche Bugatti Land-Rover</title>
+<title>запчасти Bentley Lamborghini Ferrari Aston Martin Mercedes BMW Audi Rolls-Royce Maserati Prosche Bugatti Land-Rover</title>
 {% endblock %}
 
 {% block content %}
     <div class="container justify-content-center text-center">
+    {% if brand %}
+        {% for shortcut, producer_name in producers %}
+        {% if brand == shortcut %}
+    <h2 class="h-mobile" style="margin-top: 2vw; margin-bottom: 2vw; font-weight: 550">ЗАПЧАСТИ {{ producer_name }}</h2>
+            {% endif %}
+        {% endfor %}
+        {% else %}
     <h2 class="h-mobile" style="margin-top: 2vw; margin-bottom: 2vw; font-weight: 550">ВСЕ ЗАПЧАСТИ</h2>
+    {% endif %}
     </div>
     <div class="row cols-2" style="margin-left: 0.5px; margin-right: 0.5px">
     <div class="col-2 mt-1 pl-0 pr-0" style="margin-bottom: 9px">
@@ -40,7 +48,7 @@
                                 {% if image.product.id == part.id %}
                                     {% if image.use_as_main == True %}
                                     {% if forloop %}
-                                        <img id="first"  src="{{ image.image_tag }}" alt="car-part">
+                                        <img id="first"  src="{{ image.image_tag }}" alt="{{ part.name }}">
                                     {% endif %}
                                         {% endif %}
                                 {% endif %}
@@ -67,7 +75,7 @@
                                 {% if image.product.id == part.id %}
                                     {% if image.use_as_main == True %}
                                     {% if forloop %}
-                                        <img id="first"  src="{{ image.image_tag }}" alt="car-part">
+                                        <img id="first"  src="{{ image.image_tag }}" alt="{{ part.name }}">
                                     {% endif %}
                                         {% endif %}
                                 {% endif %}
