@@ -25,6 +25,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'carparts',
     'captcha',
+    'imagekit',
+
 ]
 
 MIDDLEWARE = [

@@ -54,7 +54,12 @@
                             {% for image in part.images_with_product %}
                                 {% if image.product.id == part.id %}
                                     {% if image.use_as_main == True %}
-                                        <img id="main-carousel-img"  src="{{ image.image_tag }}" alt="car-part">
+                                        <picture>
+                                            <source media="(max-width: 799px)" srcset="{{ image.image_thumbnail_mobil.url }}">
+                                            <source media="(min-width: 800px)" srcset="{{ image.image_thumbnail.url }}">
+                                            <img id="main-carousel-img" src="{{ image.image_tag }}" alt="{{ part.name }}">
+{#                                            <img id="main-carousel-img"  src="{{ image.image_thumbnail.url }}" alt="{{ image.product.name }}">#}
+                                        </picture>
                                         {% endif %}
                                 {% endif %}
                             {% endfor %}
@@ -77,7 +82,11 @@
                             {% for image in part.images_with_product %}
                                 {% if image.product.id == part.id %}
                                     {% if image.use_as_main == True %}
-                                        <img id="main-carousel-img"  src="{{ image.image_tag }}" alt="car-part">
+                                        <picture>
+                                        <source media="(max-width: 799px)" srcset="{{ image.image_thumbnail_mobil.url }}">
+                                        <source media="(min-width: 800px)" srcset="{{ image.image_thumbnail.url }}">
+                                            <img id="main-carousel-img" src="{{ image.image_tag }}" alt="{{ part.name }}">
+                                        </picture>
                                         {% endif %}
                                 {% endif %}
                             {% endfor %}

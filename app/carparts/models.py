@@ -5,6 +5,8 @@ import os
 from django.utils.text import slugify
 from django.urls import reverse
 from django.utils.safestring import mark_safe
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
 
 PRODUCER = [
         ('AUD', 'Audi'),
@@ -62,6 +64,17 @@ class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     image = models.ImageField(null=True, upload_to='parts_photos', verbose_name="Photos")
     use_as_main = models.BooleanField(null=True, blank=True)
+    image_thumbnail = ImageSpecField(source='image',
+                                      processors=[ResizeToFill(279, 217)],
+                                      format='JPEG',
+                                      options={'quality': 60})
+
+    image_thumbnail_mobil = ImageSpecField(source='image',
+                                      processors=[ResizeToFill(69, 60)],
+                                      format='JPEG',
+                                      options={'quality': 60})
+
+
 
     def image_tag(self):
         if self.image:
