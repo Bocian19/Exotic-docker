@@ -6,7 +6,7 @@ from django.utils.text import slugify
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 from imagekit.models import ImageSpecField
-from imagekit.processors import ResizeToFill
+from imagekit.processors import ResizeToFill, SmartResize
 
 PRODUCER = [
         ('AUD', 'Audi'),
@@ -70,9 +70,9 @@ class ProductImage(models.Model):
                                       options={'quality': 60})
 
     image_thumbnail_mobil = ImageSpecField(source='image',
-                                      processors=[ResizeToFill(69, 60)],
+                                      processors=[ResizeToFill(102, 85)],
                                       format='JPEG',
-                                      options={'quality': 60})
+                                      options={'quality': 100})
 
 
 
