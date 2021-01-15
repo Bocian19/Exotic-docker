@@ -1,5 +1,6 @@
 
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
 from carparts.views import HomeView, ProductView, ProductsView, ContactView, BodykitsView, AboutView, LoadHiddenView, \
     SubscribeView, activate
@@ -7,9 +8,17 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 import debug_toolbar
-from django.conf.urls import url
+from django.conf.urls import url, include
+from .sitemaps import TodoSitemap, StaticViewSitemap
+
+sitemaps = {
+    'todos': TodoSitemap,
+    'static': StaticViewSitemap,
+}
 
 urlpatterns = [
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),
+    path('robots.txt', include('robots.urls')),
     path('admin/', admin.site.urls),
     path('', HomeView.as_view(), name="main-page"),
     path('zapchasti/<str:slug>/', ProductView.as_view(),name="product"),

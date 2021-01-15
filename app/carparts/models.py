@@ -37,15 +37,11 @@ class Product(models.Model):
     slug = models.SlugField(unique=True, max_length=120)
 
     def get_absolute_url(self):
-        kwargs = {
-            'pk': self.id,
-            'slug': self.slug
-        }
-        return reverse('product', kwargs=kwargs)
+
+        return reverse('product', args=[str(self.slug)])
 
     def save(self, *args, **kwargs):
-        # if not self.id:
-            # self.slug = slugify(self.name, allow_unicode=True)
+
         super(Product, self).save(*args, **kwargs)
 
     def images_with_product(self):
@@ -74,11 +70,9 @@ class ProductImage(models.Model):
                                       format='JPEG',
                                       options={'quality': 100})
 
-
-
     def image_tag(self):
         if self.image:
-            # return mark_safe('<img src="%s" style="width: 30px; height: 30px" />' % self.image.url)
+
             return self.image.url
         else:
             return 'No Image Found'
@@ -126,7 +120,7 @@ class Logo(models.Model):
 
     def image_tag(self):
         if self.logo_image:
-            # return mark_safe('<img src="%s" style="width: 30px; height: 30px" />' % self.image.url)
+
             return self.logo_image.url
         else:
             return 'No logo Found'
@@ -144,7 +138,7 @@ class Bodykit(models.Model):
 
     def image_tag(self):
         if self.image:
-            # return mark_safe('<img src="%s" style="width: 30px; height: 30px" />' % self.image.url)
+
             return self.image.url
         else:
             return 'No Image Found'
@@ -163,10 +157,6 @@ class SubscribeModel(models.Model):
     is_active = models.BooleanField(default=False)
     created_date = models.DateTimeField( auto_now_add=True, null=False, blank=True)
     updated_date = models.DateTimeField(auto_now=True, null=False, blank=True)
-
-    # class Meta:
-    #     app_label = "appname"
-    #     db_table = "appname_subscribe"
 
     def __str__(self):
         return self.email
