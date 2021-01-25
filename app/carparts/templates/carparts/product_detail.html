@@ -3,6 +3,12 @@
 {% block title %}
 <title>купить запчасти для {{ product.get_producer_display }} в интернет магазине exoticparts.eu | {{ product.name }}</title>
 {% endblock %}
+{% block meta-description %}
+    <meta property="description" content="🚘 {{ product.name }} | {{ product.description }}">
+{% endblock %}
+{% block meta-og-description %}
+    <meta property="og:description" content="🚘 {{ product.name }} | {{ product.description }}">
+{% endblock %}
 {% block content %}
     <div class="container" style="margin-top: 2vw; background-color: white">
         <a class="text-decoration-none text-reset" id="root-link" href="{% url 'main-page' %}">Главная </a><a class="text-decoration-none text-reset" id="root-link" href="{% url 'products' %}">/ запчасти / </a>
