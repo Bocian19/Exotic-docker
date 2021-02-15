@@ -6,9 +6,13 @@ from django.urls import reverse
 class TodoSitemap(Sitemap):
     changefreq = "weekly"
     priority = 0.5
+    protocol = 'htps'
 
     def items(self):
         return Product.objects.all()
+
+    def lastmod(self, obj):
+        return obj.pub_date
 
 
 class StaticViewSitemap(Sitemap):

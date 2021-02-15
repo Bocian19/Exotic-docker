@@ -3,11 +3,11 @@
     {% if brand %}
         {% for shortcut, producer_name in producers %}
             {% if brand == shortcut %}
-    <title>Запчасти для {{ producer_name }} в каталоге exoticparts.eu: купить запчасти для {{ producer_name }} - оригинальные автозапчасти {{ producer_name }}</title>
+    <title>Автозапчасти из Европы для {{ producer_name }} в каталоге exoticparts.eu: купить запчасти для {{ producer_name }} - оригинальные автозапчасти {{ producer_name }}</title>
         {% endif %}
         {% endfor %}
         {% else %}
-    <title>Каталог б/у и новых запчастей для эксклюзивных автомобилей</title>
+    <title>Каталог б/у и новых aвтозапчасти из Европы для эксклюзивных автомобилей</title>
     {% endif %}
 {% endblock %}
 {% block meta-description %}
